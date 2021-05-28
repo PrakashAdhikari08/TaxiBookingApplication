@@ -1,13 +1,26 @@
 package com.example.taxibookingapplication.domain;
 
+
+import com.sun.istack.NotNull;
+
+import javax.persistence.*;
+
+@Entity
 public class Taxi {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer taxiId;
 
+    @NotNull
     private String taxiNumber;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private Type type;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull
     private Status status;
 
 
