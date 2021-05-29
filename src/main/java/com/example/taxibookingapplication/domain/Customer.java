@@ -1,35 +1,39 @@
 package com.example.taxibookingapplication.domain;
 
-
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Service
-public class Taxi {
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer customerId;
 
     @NotNull
-    private String taxiNumber;
+    private String name;
 
+    @NotNull
+    private String address;
+
+    @NotNull
+    private Date birthDate;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @NotNull
-    private Type type;
+    private Gender gender;
 
-    @Enumerated(EnumType.STRING)
     @NotNull
-    private Status status;
+    private String email;
+
 
 
 }
