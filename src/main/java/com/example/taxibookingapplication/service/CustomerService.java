@@ -18,23 +18,10 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Customer> findAll(){
-        return customerRepository.findAll();
-    }
 
-    public long count(){
-        return customerRepository.count();
-    }
-
-    public void delete(Customer customer){
-        customerRepository.delete(customer);
-    }
-
-    public void save (Customer customer){
-        if(customer == null){
-            LOGGER.info( "Customer is null, Are you sure you want to to submit yur application");
-            return;
-        }
+    public void registerCustomer(Customer customer) {
+//        List<Customer> customers = customerRepository.findAll();
         customerRepository.save(customer);
+
     }
 }

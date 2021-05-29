@@ -19,7 +19,11 @@ public class Customer {
     private Integer customerId;
 
     @NotNull
-    private String name;
+    private String firstName;
+
+    @NotNull
+    private String lastName;
+
 
     @NotNull
     private String address;
@@ -33,6 +37,9 @@ public class Customer {
 
     @NotNull
     private String email;
+
+    @NotNull
+    private String password;
 
 
 
