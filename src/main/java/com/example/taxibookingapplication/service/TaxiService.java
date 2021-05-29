@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+import static com.example.taxibookingapplication.domain.Status.OCCUPIED;
+
 @Service
 @Slf4j
 public class TaxiService {
@@ -57,7 +59,7 @@ public class TaxiService {
 
         for(int i=0; i< taxiList.size();i++)
         {
-            if(taxiList.get(i).getStatus().equals(Status.OCCUPIED))
+            if(taxiList.get(i).getStatus().equals(OCCUPIED))
                 occupiedList.add(taxiList.get(i));
         }
         return occupiedList;
@@ -66,7 +68,7 @@ public class TaxiService {
     public String bookTaxi(Integer taxiId){
        Taxi taxi =  taxiRepository.findById(taxiId).get();
 
-       taxi.setStatus(Status.OCCUPIED);
+       taxi.setStatus(OCCUPIED);
 
        taxiRepository.save(taxi);
 
@@ -74,7 +76,16 @@ public class TaxiService {
 
     }
 
-
+    public String cancelTaxi(Integer id) {
+        Optional<Taxi> findBookingById = taxiRepository.findById(id);
+        if (findBookingById.isPresent()) {
+            Taxi taxi = taxiRepository.getById(id);
+            taxi.setStatus(Status.AVAILABLE);
+            taxiRepository.save(taxi);
+            return taxi.getTaxiNumber();
+        }
+        return "taxi already cancelled";
+    }
 
 
 //    public Status getTaxiStatus(String taxiId){
