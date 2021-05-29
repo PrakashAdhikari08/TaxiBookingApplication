@@ -47,9 +47,10 @@ public class TaxiController {
         return taxiList;
     }
 
-    @RequestMapping(value = "/all/available/{id})", method = RequestMethod.GET)
-    public Taxi getBookedTaxi(@PathVariable int id){
-        return taxiService.findAll().get(id);
+    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)
+    public String bookTaxi(@PathVariable Integer id){
+        String number= taxiService.bookTaxi(id);
+        return "Taxi booked with taxi number "+ number;
     }
 
 }

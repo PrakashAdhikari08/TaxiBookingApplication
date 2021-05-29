@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Service
@@ -62,27 +63,14 @@ public class TaxiService {
         return occupiedList;
     }
 
-    public void getBookedTaxi(String taxiId){
-        List<Taxi> taxiList = getAllAvailable();
-        List<Taxi> bookedTaxiList = new ArrayList<>();
-        System.out.println("Enter Yes for booking or No to Cancel");
-        Scanner scanner = new Scanner(System.in);
-        if(scanner.equals("Yes") )
-            book();
-        else
-            cancel();
+    public String bookTaxi(Integer taxiId){
+       Taxi taxi =  taxiRepository.findById(taxiId).get();
 
-    }
+       taxi.setStatus(Status.OCCUPIED);
 
-    public String book(){
-        taxi.setStatus(Status.OCCUPIED);
-        Taxi bookTaxi = taxiRepository.save(taxi);
-        return "taxi booked";
-    }
+       taxiRepository.save(taxi);
 
-    public String cancel(){
-        Taxi bookTaxi = taxiRepository.save(taxi);
-        return "taxi booking cancelled";
+       return taxi.getTaxiNumber();
 
     }
 

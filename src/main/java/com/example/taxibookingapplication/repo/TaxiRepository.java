@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface TaxiRepository extends JpaRepository<Taxi, Long> {
+public interface TaxiRepository extends JpaRepository<Taxi, Integer> {
 
 }
