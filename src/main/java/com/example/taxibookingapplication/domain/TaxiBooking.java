@@ -46,7 +46,7 @@ public class TaxiBooking {
     private BookingStatus taxiBookingStatus;
 
     @OneToOne
-    private Customer customer;
+    private Customer<Number> customer;
 
     @OneToOne
     private Taxi taxi;
