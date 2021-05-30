@@ -12,13 +12,12 @@ import java.util.logging.Logger;
 @Service
 public class CustomerService {
 
+    @Autowired
     private CustomerRepository customerRepository;
 
-    private Customer customer;
-
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+//    public CustomerService(CustomerRepository customerRepository) {
+//        this.customerRepository = customerRepository;
+//    }
 
 
     public void registerCustomer(Customer customer) {
@@ -31,7 +30,7 @@ public class CustomerService {
         boolean exists = customerRepository.existsById(id);
         if(!exists) {
             throw new IllegalStateException(
-                    "customer with id" + id + "does not exists");
+                    "customer with id " + id + " does not exists");
         }
         customerRepository.deleteById(id);
     }

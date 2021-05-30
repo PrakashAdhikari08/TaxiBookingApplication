@@ -55,8 +55,8 @@ public class TaxiController {
 
     @RequestMapping(value = "/cancel/{id}",method = RequestMethod.GET)
     public String cancelTaxi(@PathVariable Integer id){
-        String license = taxiService.cancelTaxi(id);
-        return "Taxi booking cancelled for taxi"+ license;
+        String taxiNumber = taxiService.cancelTaxi(id);
+        return "Taxi booking cancelled for taxi "+ taxiNumber;
     }
 
 

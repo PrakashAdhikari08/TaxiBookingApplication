@@ -15,7 +15,7 @@ import java.util.Date;
 public class TaxiBooking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer taxiBookingId;
 
     @NotNull
@@ -46,7 +46,7 @@ public class TaxiBooking {
     private BookingStatus taxiBookingStatus;
 
     @OneToOne
-    private Customer<Number> customer;
+    private Customer customer;
 
     @OneToOne
     private Taxi taxi;

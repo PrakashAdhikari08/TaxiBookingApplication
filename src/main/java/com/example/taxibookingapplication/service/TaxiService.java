@@ -6,11 +6,11 @@ import com.example.taxibookingapplication.repo.TaxiRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 import static com.example.taxibookingapplication.domain.Status.OCCUPIED;
 
@@ -21,8 +21,6 @@ public class TaxiService {
     @Autowired
     private TaxiRepository taxiRepository;
 
-    @Autowired
-    private Taxi taxi;
     public List<Taxi> findAll(){
         return taxiRepository.findAll();
     }
@@ -76,15 +74,16 @@ public class TaxiService {
 
     }
 
+//    @Transactional(readOnly = false)
     public String cancelTaxi(Integer id) {
-        Optional<Taxi> findBookingById = taxiRepository.findById(id);
-        if (findBookingById.isPresent()) {
-            Taxi taxi = taxiRepository.getById(id);
+        Optional<Taxi> taxiToCancelBooking = taxiRepository.findById(id);
+        if (taxiToCancelBooking.get().getStatus().equals(OCCUPIED)) {
+            Taxi taxi = taxiToCancelBooking.get();
             taxi.setStatus(Status.AVAILABLE);
             taxiRepository.save(taxi);
             return taxi.getTaxiNumber();
         }
-        return "taxi already cancelled";
+        return "taxi already available";
     }
 
 
