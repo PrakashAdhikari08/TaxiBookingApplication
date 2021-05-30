@@ -36,6 +36,12 @@ public class CustomerController {
         return "Customer Deleted";
     }
 
+    @PutMapping(value = "/update")
+    public String updateAddress(final Customer customer, String address){
+        customerService.updateAddress(customer,address);
+        return "Customer Details Updated";
+    }
+
     @ExceptionHandler(IllegalStateException.class)
     public ResponseEntity<String> noUserFound(){
         return new ResponseEntity<>("NO user found" , HttpStatus.BAD_REQUEST);

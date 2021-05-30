@@ -2,6 +2,7 @@ package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.Customer;
 import com.example.taxibookingapplication.repo.CustomerRepository;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,10 @@ public class CustomerService {
 
     public List<Customer> findAll() {
         return customerRepository.findAll();
+    }
+
+    public void updateAddress(final Customer customer, final String address) {
+        customer.setAddress(address);
+        customerRepository.save(customer);
     }
 }
