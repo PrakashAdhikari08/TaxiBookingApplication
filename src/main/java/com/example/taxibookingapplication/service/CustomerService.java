@@ -28,8 +28,12 @@ public class CustomerService {
 
 
     public void deleteCustomer(Integer id) {
-        customerRepository.delete(id);
-
+        boolean exists = customerRepository.existsById(id);
+        if(!exists) {
+            throw new IllegalStateException(
+                    "customer with id" + id + "does not exists");
+        }
+        customerRepository.deleteById(id);
     }
 
     public List<Customer> findAll() {

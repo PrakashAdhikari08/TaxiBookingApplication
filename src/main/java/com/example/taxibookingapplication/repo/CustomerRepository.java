@@ -10,8 +10,8 @@ import javax.transaction.Transactional;
 
 @Service
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    @Modifying
-    @Query("Delete from Customer where customerId in ?1")
-    @Transactional
-    void delete(Integer id);
+//    @Modifying
+//    @Query("Delete from Customer where customerId in ?1")
+//    @Transactional
+//    void delete(Integer id);
 }
