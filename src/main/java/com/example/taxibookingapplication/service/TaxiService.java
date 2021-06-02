@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.taxibookingapplication.domain.Status.AVAILABLE;
 import static com.example.taxibookingapplication.domain.Status.OCCUPIED;
 
 @Service
@@ -63,15 +64,18 @@ public class TaxiService {
         return occupiedList;
     }
 
-    public String bookTaxi(Integer taxiId){
-       Taxi taxi =  taxiRepository.findById(taxiId).get();
+    public String bookTaxi(Integer taxiId) {
+        Taxi taxi = taxiRepository.findById(taxiId).get();
+        if (taxi.getStatus().equals(AVAILABLE)) {
 
-       taxi.setStatus(OCCUPIED);
+        taxi.setStatus(OCCUPIED);
 
-       taxiRepository.save(taxi);
+        taxiRepository.save(taxi);
 
-       return taxi.getTaxiNumber();
-
+        return taxi.getTaxiNumber();
+    }
+    else
+        throw new RuntimeException("message");
     }
 
 //    @Transactional(readOnly = false)
@@ -83,7 +87,8 @@ public class TaxiService {
             taxiRepository.save(taxi);
             return taxi.getTaxiNumber();
         }
-        return "taxi already available";
+        else
+        throw new RuntimeException("message");
     }
 
 
