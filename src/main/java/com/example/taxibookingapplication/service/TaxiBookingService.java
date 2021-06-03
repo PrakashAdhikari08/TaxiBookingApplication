@@ -1,6 +1,8 @@
 package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.*;
+import com.example.taxibookingapplication.exception.TaxiBookingIdNotFoundException;
+import com.example.taxibookingapplication.exception.TaxiIdNotFoundException;
 import com.example.taxibookingapplication.repo.CustomerRepository;
 import com.example.taxibookingapplication.repo.TaxiBookingRepository;
 import com.example.taxibookingapplication.repo.TaxiRepository;
@@ -35,7 +37,7 @@ public class TaxiBookingService {
             taxiBookingRepository.save(taxiBooking);
         }
         else
-            throw new RuntimeException("message");
+            throw getTaxiBookingIdNotFoundException(taxiId);
 
 
 
@@ -55,7 +57,11 @@ public class TaxiBookingService {
             taxiBookingRepository.save(taxiBooking);
         }
         else
-            throw new RuntimeException("message");
+            throw getTaxiBookingIdNotFoundException(taxiID);
 
+    }
+
+    private TaxiBookingIdNotFoundException getTaxiBookingIdNotFoundException(Integer taxiBookingId){
+        return new TaxiBookingIdNotFoundException("Taxi Booking Id "+taxiBookingId+" Not Found");
     }
 }

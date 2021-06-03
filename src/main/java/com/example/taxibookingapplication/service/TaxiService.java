@@ -2,6 +2,7 @@ package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.Status;
 import com.example.taxibookingapplication.domain.Taxi;
+import com.example.taxibookingapplication.exception.TaxiIdNotFoundException;
 import com.example.taxibookingapplication.repo.TaxiRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class TaxiService {
         return taxi.getTaxiNumber();
     }
     else
-        throw new RuntimeException("message");
+        throw getTaxiIdNotFoundException(taxiId);
     }
 
 //    @Transactional(readOnly = false)
@@ -88,7 +89,11 @@ public class TaxiService {
             return taxi.getTaxiNumber();
         }
         else
-        throw new RuntimeException("message");
+        throw getTaxiIdNotFoundException(id);
+    }
+
+    private TaxiIdNotFoundException getTaxiIdNotFoundException(Integer taxiId){
+        return new TaxiIdNotFoundException("Taxi Id "+taxiId+" Not Found");
     }
 
 
