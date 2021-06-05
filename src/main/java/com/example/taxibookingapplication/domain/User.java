@@ -24,11 +24,11 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer customerId;
+    private Integer Id;
 
     @NotNull
     private String firstName;
@@ -56,5 +56,9 @@ public class Customer {
 
     @NotNull
     private String password;
+
+    @Enumerated
+    @NotNull
+    private Role role;
 
 }

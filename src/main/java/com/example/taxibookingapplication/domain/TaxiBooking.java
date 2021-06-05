@@ -33,9 +33,6 @@ public class TaxiBooking {
     @NotNull
     private String acceptedTime;
 
-
-    private long customerId;
-
     private String reasonToCancel;
 
     private Date cancelTime;
@@ -46,7 +43,7 @@ public class TaxiBooking {
     private BookingStatus taxiBookingStatus;
 
     @OneToOne
-    private Customer customer;
+    private User user;
 
     @OneToOne
     private Taxi taxi;
