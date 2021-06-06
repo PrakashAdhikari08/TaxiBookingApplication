@@ -30,5 +30,8 @@ public class Taxi {
     @NotNull
     private Status status;
 
+    @OneToOne
+    private User user;
+
 
 }
