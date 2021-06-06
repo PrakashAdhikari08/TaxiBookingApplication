@@ -2,6 +2,7 @@ package com.example.taxibookingapplication.controller;
 
 import com.example.taxibookingapplication.exception.TaxiBookingIdNotFoundException;
 import com.example.taxibookingapplication.service.TaxiBookingService;
+import com.example.taxibookingapplication.service.TaxiBookingServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,24 +18,24 @@ public class TaxiBookingController {
 
     @ApiOperation("Booking Status information")
     @RequestMapping(value="/accept", method = RequestMethod.GET)
-    public String acceptAtaxi(
+    public ResponseEntity<String> acceptAtaxi(
             @RequestParam Integer taxiID, @RequestParam Integer customerID){
        taxiBookingService.acceptATaxi(taxiID, customerID);
-       return "Taxi processed for booking";
+       return new ResponseEntity<>("Taxi processed for booking", HttpStatus.CONTINUE);
     }
 
     @ApiOperation("Booking Cancel information")
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
-    public String cancelTaxi(@RequestParam Integer taxiBookingID){
+    public ResponseEntity<String> cancelTaxi(@RequestParam Integer taxiBookingID){
         taxiBookingService.cancelTaxi(taxiBookingID);
-        return "Taxi cancelled";
+        return new ResponseEntity<>("Taxi cancelled", HttpStatus.CONTINUE);
     }
 
     @ApiOperation("Booking Complete information")
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
-    public String completeTaxi(@RequestParam Integer taxiBookingID) {
+    public ResponseEntity<String> completeTaxi(@RequestParam Integer taxiBookingID) {
         taxiBookingService.completeTaxi(taxiBookingID);
-        return "Taxi Booking Completed";
+        return new ResponseEntity<>("Taxi Booking Completed", HttpStatus.OK);
     }
 
 
