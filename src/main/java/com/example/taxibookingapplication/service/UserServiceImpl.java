@@ -2,6 +2,7 @@ package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.Role;
 import com.example.taxibookingapplication.domain.User;
+import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
 import com.example.taxibookingapplication.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
 
-//    public userService(userRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-
-
-    public void registerCustomer(User user) {
-//        List<User> users = userRepository.findAll();
+    public void registerCustomer(User user) throws UserNameAlreadyPresentException {
+        if(userRepository.countByEmail(user.getEmail()) >0){
+            throw new UserNameAlreadyPresentException("Username already in use");
+        }
         user.setResetToken(generateResetToken());
         user.setRole(Role.CUSTOMER);
         userRepository.save(user);

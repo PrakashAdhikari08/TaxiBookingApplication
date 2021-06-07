@@ -2,6 +2,7 @@ package com.example.taxibookingapplication.controller;
 
 import com.example.taxibookingapplication.config.userconfig.LoadAdminFromFile;
 import com.example.taxibookingapplication.domain.User;
+import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
 import com.example.taxibookingapplication.service.UserService;
 import com.example.taxibookingapplication.service.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +26,7 @@ public class UserController {
 
     @ApiOperation("User registration")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<String> customerRegister(@RequestBody User user){
+    public ResponseEntity<String> customerRegister(@RequestBody User user) throws UserNameAlreadyPresentException {
         userService.registerCustomer(user);
         return new ResponseEntity("Customer registered", HttpStatus.CREATED);
     }
@@ -60,9 +61,8 @@ public class UserController {
         return new ResponseEntity<>("User Details Updated", HttpStatus.CONTINUE);
     }
 
-
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<String> noUserFound(){
-        return new ResponseEntity<>("NO user found" , HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(UserNameAlreadyPresentException.class)
+    public ResponseEntity<String> userNameInuseException(){
+        return new ResponseEntity<>("Username already in use.", HttpStatus.BAD_REQUEST);
     }
 }
