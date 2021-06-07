@@ -61,4 +61,6 @@ public class User {
     @NotNull
     private Role role;
 
+    private Integer resetToken;
+
 }
