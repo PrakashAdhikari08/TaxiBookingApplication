@@ -13,8 +13,11 @@ import java.util.Random;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Autowired
     private UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void registerCustomer(User user) throws UserNameAlreadyPresentException {
         if(userRepository.countByEmail(user.getEmail()) >0){
