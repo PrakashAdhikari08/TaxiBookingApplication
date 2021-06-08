@@ -2,7 +2,9 @@ package com.example.taxibookingapplication.controller;
 
 import com.example.taxibookingapplication.config.userconfig.LoadAdminFromFile;
 import com.example.taxibookingapplication.domain.User;
+import com.example.taxibookingapplication.dto.UserDto;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
+import com.example.taxibookingapplication.mapper.UserMapper;
 import com.example.taxibookingapplication.service.UserService;
 import com.example.taxibookingapplication.service.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -44,9 +46,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/get/all", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> showAll(){
+    public ResponseEntity<List<UserDto>> showAll(){
         List<User> users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<UserDto> userDtos = UserMapper.toDtoList(users);
+        return new ResponseEntity<>(userDtos, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete/{id}")
