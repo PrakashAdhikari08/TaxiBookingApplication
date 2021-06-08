@@ -1,8 +1,12 @@
 package com.example.taxibookingapplication.mapper;
 
+import com.example.taxibookingapplication.domain.Gender;
+import com.example.taxibookingapplication.domain.Role;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.dto.UserDto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +17,10 @@ public class UserMapper {
         userDto.setId(user.getId());
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
-
+        userDto.setAddress(user.getAddress());
+        userDto.setRole(String.valueOf(user.getRole()));
+        userDto.setGender(String.valueOf(user.getGender()));
+        userDto.setBirthDate(String.valueOf(user.getBirthDate()));
         return userDto;
 
     }
@@ -24,6 +31,9 @@ public class UserMapper {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
+        user.setBirthDate(LocalDate.parse(userDto.getBirthDate()));
+        user.setGender(Gender.valueOf(userDto.getGender()));
+        user.setAddress(userDto.getAddress());
 
         return user;
     }
