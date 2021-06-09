@@ -65,4 +65,8 @@ public class User {
 
     private Integer resetToken;
 
+//    public User(Integer userId) {
+//
+//        this.Id = userId;
+//    }
 }
