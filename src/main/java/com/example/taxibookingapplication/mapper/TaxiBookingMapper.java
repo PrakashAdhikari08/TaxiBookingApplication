@@ -10,7 +10,8 @@ public class TaxiBookingMapper {
         TaxiBookingDto taxiBookingDto = new TaxiBookingDto();
 
         taxiBookingDto.setTaxiBookingId(taxiBooking.getTaxiBookingId());
-//        taxiBookingDto.setTaxi((taxiBooking.getTaxi()));
+       taxiBookingDto.setTaxiID((taxiBooking.getTaxi().getId()));
+       taxiBookingDto.setUserID(taxiBooking.getUser().getId());
         taxiBookingDto.setTaxiBookingStatus(taxiBookingDto.getTaxiBookingStatus());
         taxiBookingDto.setBookedTime(taxiBooking.getBookedTime());
         taxiBookingDto.setTaxiBookingId(taxiBookingDto.getTaxiBookingId());
