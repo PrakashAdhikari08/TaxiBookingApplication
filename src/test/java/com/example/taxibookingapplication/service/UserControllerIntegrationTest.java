@@ -46,6 +46,7 @@ public class UserControllerIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+
     @Test
     public void getListOfAllUser(){
 

@@ -4,6 +4,7 @@ import com.example.taxibookingapplication.domain.Role;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
 import com.example.taxibookingapplication.repo.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
@@ -21,10 +23,12 @@ public class UserServiceImpl implements UserService{
 
     public void registerCustomer(User user) throws UserNameAlreadyPresentException {
         if(userRepository.countByEmail(user.getEmail()) >0){
+            log.info("Username: already in use.", user.getEmail());
             throw new UserNameAlreadyPresentException("Username already in use");
         }
         user.setResetToken(generateResetToken());
         user.setRole(Role.CUSTOMER);
+        log.info("Registering user into DB with name: {} and Role : {}", user.getFirstName(), user.getRole());
         userRepository.save(user);
     }
 
