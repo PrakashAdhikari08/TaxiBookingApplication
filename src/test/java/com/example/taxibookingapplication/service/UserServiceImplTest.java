@@ -1,5 +1,6 @@
 package com.example.taxibookingapplication.service;
 
+import com.example.taxibookingapplication.domain.Gender;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
 import com.example.taxibookingapplication.repo.UserRepository;
@@ -64,9 +65,16 @@ class UserServiceImplTest {
         verify(userRepository).save(any(User.class));
     }
 
-    private User createUser(){
-        return User.builder().email("abc").password("222").
-                build();
+
+    @Test
+    void updateAddress() {
+        userService.updateAddress(createUser(), "Sunshine Corio st, VIC");
+        verify(userRepository).save(any(User.class));
     }
 
+
+    private User createUser(){
+        return User.builder().email("abc").password("222").firstName("Kishor").lastName("Shrestha").gender(Gender.MALE).
+                build();
+    }
 }

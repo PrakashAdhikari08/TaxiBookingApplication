@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void updateAddress(User user, String address) {
+        log.info("Updating the address for user: {}", user.getFirstName() );
         user.setAddress(address);
         userRepository.save(user);
     }

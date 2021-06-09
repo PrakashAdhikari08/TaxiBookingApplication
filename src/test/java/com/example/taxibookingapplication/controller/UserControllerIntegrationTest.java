@@ -1,11 +1,14 @@
-package com.example.taxibookingapplication.service;
+package com.example.taxibookingapplication.controller;
 
 import com.example.taxibookingapplication.domain.Gender;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.repo.UserRepository;
+import com.example.taxibookingapplication.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
