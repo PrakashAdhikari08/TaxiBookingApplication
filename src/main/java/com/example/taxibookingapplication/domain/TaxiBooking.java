@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -22,20 +23,20 @@ public class TaxiBooking {
     private String start;
 
     @NotNull
-    private Date startTime;
+    private LocalTime startTime;
 
     @NotNull
-    private Date endTime;
+    private LocalTime endTime;
 
     @NotNull
-    private String bookedTime;
+    private LocalTime bookedTime;
 
     @NotNull
-    private String acceptedTime;
+    private LocalTime acceptedTime;
 
     private String reasonToCancel;
 
-    private Date cancelTime;
+    private LocalTime cancelTime;
 
 
     @Enumerated(EnumType.STRING)

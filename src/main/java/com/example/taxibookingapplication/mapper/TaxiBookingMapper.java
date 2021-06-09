@@ -10,7 +10,7 @@ public class TaxiBookingMapper {
         TaxiBookingDto taxiBookingDto = new TaxiBookingDto();
 
         taxiBookingDto.setTaxiBookingId(taxiBooking.getTaxiBookingId());
-        taxiBookingDto.setTaxi(String.valueOf(taxiBooking.getTaxi()));
+//        taxiBookingDto.setTaxi((taxiBooking.getTaxi()));
         taxiBookingDto.setTaxiBookingStatus(taxiBookingDto.getTaxiBookingStatus());
         taxiBookingDto.setBookedTime(taxiBooking.getBookedTime());
         taxiBookingDto.setTaxiBookingId(taxiBookingDto.getTaxiBookingId());
@@ -26,7 +26,7 @@ public class TaxiBookingMapper {
 
         taxiBooking.setTaxiBookingStatus(BookingStatus.valueOf(taxiBookingDto.getTaxiBookingStatus()));
         taxiBooking.setTaxiBookingId(taxiBookingDto.getTaxiBookingId());
-        taxiBooking.setTaxi(taxiBookingDto.getTaxi());
+//        taxiBooking.setTaxi(taxiBookingDto.getTaxiID());
         taxiBooking.setCancelTime(taxiBookingDto.getCancelTime());
         taxiBooking.setBookedTime(taxiBookingDto.getBookedTime());
         taxiBooking.setReasonToCancel(taxiBookingDto.getReasonToCancel());
@@ -34,5 +34,7 @@ public class TaxiBookingMapper {
         taxiBooking.setEndTime(taxiBookingDto.getEndTime());
         taxiBooking.setAcceptedTime(taxiBookingDto.getAcceptedTime());
         taxiBooking.setStart(taxiBookingDto.getStart());
+
+        return taxiBooking;
     }
 }
