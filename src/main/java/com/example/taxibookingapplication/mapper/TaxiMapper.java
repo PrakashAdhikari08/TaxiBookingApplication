@@ -14,10 +14,12 @@ public class TaxiMapper {
     public static TaxiDto toTaxiDto(Taxi taxi) {
         TaxiDto taxiDto = new TaxiDto();
 
+        taxiDto.setId(taxi.getId());
         taxiDto.setTaxiNumber(taxi.getTaxiNumber());
-        taxiDto.setType(String.valueOf(taxi.getType()));
-//        taxiDto.setStatus(taxi.getStatus());
-//        taxiDto.setUser(taxi.getUser());
+        taxiDto.setStatus(taxi.getStatus());
+        taxiDto.setUserId(taxi.getUser().getId());
+        taxiDto.setType(taxi.getType());
+
         return taxiDto;
 
     }
@@ -26,15 +28,13 @@ public class TaxiMapper {
     public static  Taxi toTaxiEntity(TaxiDto taxiDto){
         Taxi taxi = new Taxi();
         taxi.setTaxiNumber(taxiDto.getTaxiNumber());
-        taxi.setType(Type.valueOf(taxiDto.getType()));
-//        taxi.setStatus(String.valueOf(taxi.getStatus()));
-//        taxi.setUser(User.valueOf(taxi.getUser()));
+        taxi.setType((taxiDto.getType()));
         return taxi;
     }
 
-    public static List<TaxiDto> toTaxiDtoList (List<Taxi> taxis){
+    public static List<TaxiDto> toDtoList(List<Taxi> taxiList){
         List<TaxiDto> taxiDtoList = new ArrayList<>();
-        taxis.forEach(
+        taxiList.forEach(
                 taxi -> taxiDtoList.add(toTaxiDto(taxi))
         );
         return taxiDtoList;

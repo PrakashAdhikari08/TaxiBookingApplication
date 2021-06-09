@@ -1,5 +1,7 @@
 package com.example.taxibookingapplication.dto;
 
+import com.example.taxibookingapplication.domain.Status;
+import com.example.taxibookingapplication.domain.Type;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaxiDto {
 
-    private Integer id;
+    private Integer Id;
     private String taxiNumber;
-    private String type;
-    private String Status;
-    private String User;
+    private Type type;
+    private Status Status;
+    private Integer userId;
 
 }

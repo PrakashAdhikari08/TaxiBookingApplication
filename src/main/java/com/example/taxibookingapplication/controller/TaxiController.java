@@ -32,7 +32,7 @@ public class TaxiController {
             consumes = "application/json")
 
     public ResponseEntity<String> registerTaxi(@RequestBody TaxiDto taxiDto, @PathVariable Integer userID) {
-        Taxi taxi = new Taxi();
+        Taxi taxi = TaxiMapper.toTaxiEntity(taxiDto);
         taxiService.registerTaxi(taxi, userID);
         return new ResponseEntity<>("Taxi registered", HttpStatus.ACCEPTED);
     }
@@ -40,21 +40,21 @@ public class TaxiController {
     @GetMapping(value = "/all")
     public ResponseEntity<List<TaxiDto>> getAllTaxi() {
         List<Taxi> taxis = taxiService.findAll();
-        List<TaxiDto> taxiDtoList = TaxiMapper.toTaxiDtoList(taxis);
-        return new ResponseEntity<>(taxiDtoList, HttpStatus.CONTINUE);
+        List<TaxiDto> taxiDtoList = TaxiMapper.toDtoList(taxis);
+        return new ResponseEntity<>(taxiDtoList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all/available", method = RequestMethod.GET)
     public ResponseEntity<List<TaxiDto> >getAllAvailableTaxi(){
         List<Taxi> taxiList = taxiService.getAllAvailable();
-        List<TaxiDto> taxiDtoList = TaxiMapper.toTaxiDtoList(taxiList);
+        List<TaxiDto> taxiDtoList = TaxiMapper.toDtoList(taxiList);
         return new ResponseEntity<>(taxiDtoList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all/occupied", method = RequestMethod.GET)
     public ResponseEntity<List<TaxiDto>> getAllOccupiedTaxi() {
         List<Taxi> taxiList = taxiService.getAllOccupied();
-        List<TaxiDto> taxiDtoList = TaxiMapper.toTaxiDtoList(taxiList);
+        List<TaxiDto> taxiDtoList = TaxiMapper.toDtoList(taxiList);
         return new ResponseEntity<>(taxiDtoList, HttpStatus.OK);
     }
 
