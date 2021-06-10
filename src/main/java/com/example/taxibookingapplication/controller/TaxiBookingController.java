@@ -1,6 +1,9 @@
 package com.example.taxibookingapplication.controller;
 
+import com.example.taxibookingapplication.domain.TaxiBooking;
 import com.example.taxibookingapplication.exception.TaxiBookingIdNotFoundException;
+import com.example.taxibookingapplication.mapper.TaxiBookingMapper;
+import com.example.taxibookingapplication.mapper.TaxiMapper;
 import com.example.taxibookingapplication.service.TaxiBookingService;
 import com.example.taxibookingapplication.service.TaxiBookingServiceImpl;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +23,7 @@ public class TaxiBookingController {
     @RequestMapping(value="/accept", method = RequestMethod.GET)
     public ResponseEntity<String> acceptAtaxi(
             @RequestParam Integer taxiID, @RequestParam Integer customerID){
+
        taxiBookingService.acceptATaxi(taxiID, customerID);
        return new ResponseEntity<>("Taxi processed for booking", HttpStatus.OK);
     }

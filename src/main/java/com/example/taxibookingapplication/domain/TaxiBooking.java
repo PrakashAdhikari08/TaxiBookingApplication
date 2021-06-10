@@ -38,6 +38,14 @@ public class TaxiBooking {
 
     private String reasonToCancel;
 
+    public LocalTime getCancelTime() {
+        return cancelTime;
+    }
+
+    public void setCancelTime(LocalTime cancelTime) {
+        this.cancelTime = cancelTime;
+    }
+
     private LocalTime cancelTime;
 
 

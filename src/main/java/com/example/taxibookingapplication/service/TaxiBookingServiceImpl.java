@@ -1,6 +1,7 @@
 package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.*;
+import com.example.taxibookingapplication.dto.TaxiBookingDto;
 import com.example.taxibookingapplication.exception.TaxiBookingIdNotFoundException;
 import com.example.taxibookingapplication.notification.CustomerNotificationServiceImpl;
 import com.example.taxibookingapplication.notification.DriverNotificationServiceImpl;
@@ -24,6 +25,8 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
     @Autowired
     private TaxiRepository taxiRepository;
 
+    private SendMailService sendMailService;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -45,7 +48,8 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 taxiBooking.setUser(user);
                 taxiBooking.setTaxi(taxi);
                 taxiBooking.setTaxiBookingStatus(BookingStatus.ACTIVE);
-
+                taxiBooking.setBookedTime(taxiBooking.getBookedTime());
+                sendMailService.sendMail(new Mail("Booking created"));
                 taxiBookingRepository.save(taxiBooking);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 2);
@@ -72,6 +76,8 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 User user =taxiBookingRepository.getById(taxiBookingID).getUser();
                 log.info("Username {}",user.getFirstName());
                 taxiBooking.setTaxiBookingStatus(BookingStatus.CANCEL);
+                taxiBooking.setCancelTime(LocalTime.now());
+
                 taxiBookingRepository.save(taxiBooking);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
 
@@ -95,6 +101,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
         if (taxiBooking.getTaxiBookingStatus() == BookingStatus.ACTIVE) {
             taxiBooking.setTaxiBookingStatus(BookingStatus.COMPLETE);
             taxi.setStatus(Status.AVAILABLE);
+            taxiBooking.setEndTime(LocalTime.now());
             taxiRepository.save(taxi);
             taxiBookingRepository.save(taxiBooking);
         } else {
