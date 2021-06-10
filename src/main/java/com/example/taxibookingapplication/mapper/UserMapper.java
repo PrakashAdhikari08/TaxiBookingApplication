@@ -18,9 +18,9 @@ public class UserMapper {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
-//        userDto.setAddress(user.getAddress());
-//        userDto.setRole(String.valueOf(user.getRole()));
-//        userDto.setGender(String.valueOf(user.getGender()));
+        userDto.setAddress(user.getAddress());
+        userDto.setRole(user.getRole());
+        userDto.setGender(user.getGender());
 //        userDto.setBirthDate(String.valueOf(user.getBirthDate()));
         return userDto;
 
@@ -32,9 +32,9 @@ public class UserMapper {
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
         user.setPassword(userDto.getPassword());
-//        user.setBirthDate(LocalDate.parse(userDto.getBirthDate()));
-//        user.setGender(Gender.valueOf(userDto.getGender()));
-//        user.setAddress(userDto.getAddress());
+        user.setGender((userDto.getGender()));
+        user.setAddress(userDto.getAddress());
+        user.setBirthDate(userDto.getBirthDate());
 
         return user;
     }

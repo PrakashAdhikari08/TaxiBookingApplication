@@ -1,8 +1,12 @@
 package com.example.taxibookingapplication.dto;
 
+import com.example.taxibookingapplication.domain.Gender;
+import com.example.taxibookingapplication.domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -17,13 +21,13 @@ public class UserDto {
 
     private String address;
 
-    private String birthDate;
+    private LocalDate birthDate;
 
     private String lastUpdated;
 
-    private String gender;
+    private Gender gender;
 
-    private String role;
+    private Role role;
 
     private String email;
 

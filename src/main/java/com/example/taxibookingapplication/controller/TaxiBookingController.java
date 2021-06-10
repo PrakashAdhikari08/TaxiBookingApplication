@@ -21,14 +21,14 @@ public class TaxiBookingController {
     public ResponseEntity<String> acceptAtaxi(
             @RequestParam Integer taxiID, @RequestParam Integer customerID){
        taxiBookingService.acceptATaxi(taxiID, customerID);
-       return new ResponseEntity<>("Taxi processed for booking", HttpStatus.CONTINUE);
+       return new ResponseEntity<>("Taxi processed for booking", HttpStatus.OK);
     }
 
     @ApiOperation("Booking Cancel information")
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     public ResponseEntity<String> cancelTaxi(@RequestParam Integer taxiBookingID){
         taxiBookingService.cancelTaxi(taxiBookingID);
-        return new ResponseEntity<>("Taxi cancelled", HttpStatus.CONTINUE);
+        return new ResponseEntity<>("Taxi cancelled", HttpStatus.OK);
     }
 
     @ApiOperation("Booking Complete information")

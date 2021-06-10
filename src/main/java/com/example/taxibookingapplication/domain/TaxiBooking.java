@@ -4,10 +4,11 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Data
@@ -29,6 +30,7 @@ public class TaxiBooking {
     private LocalTime endTime;
 
     @NotNull
+    @CreationTimestamp
     private LocalTime bookedTime;
 
     @NotNull
