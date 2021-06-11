@@ -77,6 +77,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 log.info("Username {}",user.getFirstName());
                 taxiBooking.setTaxiBookingStatus(BookingStatus.CANCEL);
                 taxiBooking.setCancelTime(LocalTime.now());
+                sendMailService.sendMail(new Mail("Booking cancelled"));
 
                 taxiBookingRepository.save(taxiBooking);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
