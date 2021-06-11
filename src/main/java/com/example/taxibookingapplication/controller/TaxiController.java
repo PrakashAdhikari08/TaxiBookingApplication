@@ -2,8 +2,12 @@ package com.example.taxibookingapplication.controller;
 
 
 import com.example.taxibookingapplication.domain.Taxi;
+import com.example.taxibookingapplication.dto.TaxiDto;
+import com.example.taxibookingapplication.mapper.TaxiMapper;
+import com.example.taxibookingapplication.mapper.UserMapper;
 import com.example.taxibookingapplication.service.TaxiService;
 import io.swagger.annotations.ApiOperation;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,8 @@ public class TaxiController {
     @Autowired
     private TaxiService taxiService;
 
+
+
     @ApiOperation("Save a taxi to the System")
     @RequestMapping(
             value = "/save/{userID}",
@@ -25,27 +31,31 @@ public class TaxiController {
             method = RequestMethod.POST,
             consumes = "application/json")
 
-    public ResponseEntity<String> registerTaxi(@RequestBody Taxi taxi, @PathVariable Integer userID) {
+    public ResponseEntity<String> registerTaxi(@RequestBody TaxiDto taxiDto, @PathVariable Integer userID) {
+        Taxi taxi = TaxiMapper.toTaxiEntity(taxiDto);
         taxiService.registerTaxi(taxi, userID);
         return new ResponseEntity<>("Taxi registered", HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<Taxi>> getAllTaxi() {
+    public ResponseEntity<List<TaxiDto>> getAllTaxi() {
         List<Taxi> taxis = taxiService.findAll();
-        return new ResponseEntity<>(taxis, HttpStatus.CONTINUE);
+        List<TaxiDto> taxiDtoList = TaxiMapper.toDtoList(taxis);
+        return new ResponseEntity<>(taxiDtoList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all/available", method = RequestMethod.GET)
-    public ResponseEntity<List<Taxi> >getAllAvailableTaxi(){
+    public ResponseEntity<List<TaxiDto> >getAllAvailableTaxi(){
         List<Taxi> taxiList = taxiService.getAllAvailable();
-        return new ResponseEntity<>(taxiList, HttpStatus.OK);
+        List<TaxiDto> taxiDtoList = TaxiMapper.toDtoList(taxiList);
+        return new ResponseEntity<>(taxiDtoList, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/all/occupied", method = RequestMethod.GET)
-    public ResponseEntity<List<Taxi>> getAllOccupiedTaxi() {
+    public ResponseEntity<List<TaxiDto>> getAllOccupiedTaxi() {
         List<Taxi> taxiList = taxiService.getAllOccupied();
-        return new ResponseEntity<>(taxiList, HttpStatus.OK);
+        List<TaxiDto> taxiDtoList = TaxiMapper.toDtoList(taxiList);
+        return new ResponseEntity<>(taxiDtoList, HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/book/{id}", method = RequestMethod.GET)

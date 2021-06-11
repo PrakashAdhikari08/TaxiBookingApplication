@@ -4,9 +4,11 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -15,27 +17,36 @@ import java.util.Date;
 public class TaxiBooking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "optimized-sequence")
     private Integer taxiBookingId;
 
     @NotNull
     private String start;
 
     @NotNull
-    private Date startTime;
+    private LocalTime startTime;
 
     @NotNull
-    private Date endTime;
+    private LocalTime endTime;
 
     @NotNull
-    private String bookedTime;
+    @CreationTimestamp
+    private LocalTime bookedTime;
 
     @NotNull
-    private String acceptedTime;
+    private LocalTime acceptedTime;
 
     private String reasonToCancel;
 
-    private Date cancelTime;
+    public LocalTime getCancelTime() {
+        return cancelTime;
+    }
+
+    public void setCancelTime(LocalTime cancelTime) {
+        this.cancelTime = cancelTime;
+    }
+
+    private LocalTime cancelTime;
 
 
     @Enumerated(EnumType.STRING)

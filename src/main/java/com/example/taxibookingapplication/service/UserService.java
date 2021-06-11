@@ -1,6 +1,7 @@
 package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.User;
+import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    void registerCustomer(User user);
+    void registerCustomer(User user) throws UserNameAlreadyPresentException;
 
     void registerDriver(User user);
 }

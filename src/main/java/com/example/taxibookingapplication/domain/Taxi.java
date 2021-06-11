@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Taxi {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "optimized-sequence")
     private Integer id;
 
     @NotNull
@@ -32,6 +32,5 @@ public class Taxi {
 
     @OneToOne
     private User user;
-
 
 }

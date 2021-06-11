@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.Scanner;
 
 @Service
@@ -18,12 +18,13 @@ import java.util.Scanner;
 public class LoadAdminFromFile {
     @Autowired
     private UserRepository userRepository;
+
     public void loadAdmin() throws IOException {
 
-        File file= new File("loadAdmin.txt");
+        File file = new File("loadAdmin.txt");
         Scanner scanner = new Scanner(file);
-        while(scanner.hasNext()){
-           String [] line = scanner.nextLine().split(",");
+        while (scanner.hasNext()) {
+            String[] line = scanner.nextLine().split(",");
 
             User user = new User();
 
@@ -35,9 +36,18 @@ public class LoadAdminFromFile {
             user.setEmail(line[5]);
             user.setPassword(line[6]);
             user.setRole(Role.valueOf(line[7]));
+            user.setResetToken(generateResetToken());
 
             userRepository.save(user);
             log.info("User with username : {} and role : {} saved to DB", user.getEmail(), user.getRole());
         }
+    }
+
+
+    private Integer generateResetToken() {
+        Random random = new Random();
+        int number = random.nextInt(999999);
+
+        return Integer.valueOf(String.format("%06d", number));
     }
 }
