@@ -5,8 +5,10 @@ import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.dto.UserDto;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
 import com.example.taxibookingapplication.mapper.UserMapper;
+import com.example.taxibookingapplication.pdf.PdfGenerator;
 import com.example.taxibookingapplication.service.UserService;
 import com.example.taxibookingapplication.service.UserServiceImpl;
+import com.itextpdf.text.DocumentException;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class UserController {
     @Autowired
     private LoadAdminFromFile loadAdminFromFile;
 
+    @Autowired
+    private PdfGenerator pdfGenerator;
+
     @ApiOperation("User registration")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> customerRegister(@RequestBody UserDto userDto) throws UserNameAlreadyPresentException {
@@ -46,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/load")
-    public void loadAdmin() throws IOException {
+    public void loadAdmin() throws IOException, DocumentException {
         loadAdminFromFile.loadAdmin();
     }
 
