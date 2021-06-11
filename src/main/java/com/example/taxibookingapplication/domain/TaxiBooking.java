@@ -17,7 +17,7 @@ import java.time.LocalTime;
 public class TaxiBooking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "optimized-sequence")
     private Integer taxiBookingId;
 
     @NotNull
