@@ -42,7 +42,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <scope>dev</scope>
         </dependency>
 
 <!--        Swagger Dependency-->
@@ -110,6 +110,11 @@
             <version>5.5.10</version>
         </dependency>
 
+<!--        H2 for prod -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
