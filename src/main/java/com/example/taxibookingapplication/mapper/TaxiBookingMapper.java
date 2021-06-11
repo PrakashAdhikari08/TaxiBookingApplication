@@ -9,7 +9,7 @@ public class TaxiBookingMapper {
     public  static TaxiBookingDto toTaxiBookingDto(TaxiBooking taxiBooking){
         TaxiBookingDto taxiBookingDto = new TaxiBookingDto();
 
-        taxiBookingDto.setTaxiBookingId(taxiBooking.getTaxiBookingId());
+//        taxiBookingDto.setTaxiBookingId(taxiBooking.getTaxiBookingId());
        taxiBookingDto.setTaxiID((taxiBooking.getTaxi().getId()));
        taxiBookingDto.setUserID(taxiBooking.getUser().getId());
         taxiBookingDto.setTaxiBookingStatus(taxiBookingDto.getTaxiBookingStatus());
@@ -22,7 +22,7 @@ public class TaxiBookingMapper {
         return  taxiBookingDto;
     }
 
-    public static TaxiBooking toTaxiBooking(TaxiBookingDto taxiBookingDto){
+    public static TaxiBooking toTaxiBookingEntity(TaxiBookingDto taxiBookingDto){
         TaxiBooking taxiBooking = new TaxiBooking();
 
         taxiBooking.setTaxiBookingStatus(BookingStatus.valueOf(taxiBookingDto.getTaxiBookingStatus()));
