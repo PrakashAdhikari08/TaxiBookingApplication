@@ -22,7 +22,7 @@ public class TaxiBookingController {
     @ApiOperation("Booking Status information")
     @RequestMapping(value="/accept", method = RequestMethod.GET)
     public ResponseEntity<String> acceptAtaxi(
-//            @RequestParam Integer taxiID, @RequestParam Integer customerID){
+            @RequestParam Integer taxiID, @RequestParam Integer customerID){
 
        taxiBookingService.acceptATaxi(taxiID, customerID);
        return new ResponseEntity<>("Taxi processed for booking", HttpStatus.OK);
