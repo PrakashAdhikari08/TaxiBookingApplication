@@ -25,7 +25,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
     @Autowired
     private TaxiRepository taxiRepository;
 
-    private SendMailService sendMailService;
+//    private SendMailService sendMailService;
 
     @Autowired
     private UserRepository userRepository;
@@ -49,7 +49,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 taxiBooking.setTaxi(taxi);
                 taxiBooking.setTaxiBookingStatus(BookingStatus.ACTIVE);
                 taxiBooking.setBookedTime(taxiBooking.getBookedTime());
-                sendMailService.sendMail(new Mail("Booking created"));
+//                sendMailService.sendMail(new Mail("Booking created"));
                 taxiBookingRepository.save(taxiBooking);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 2);
@@ -77,7 +77,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 log.info("Username {}",user.getFirstName());
                 taxiBooking.setTaxiBookingStatus(BookingStatus.CANCEL);
                 taxiBooking.setCancelTime(LocalTime.now());
-                sendMailService.sendMail(new Mail("Booking cancelled"));
+//                sendMailService.sendMail(new Mail("Booking cancelled"));
 
                 taxiBookingRepository.save(taxiBooking);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
