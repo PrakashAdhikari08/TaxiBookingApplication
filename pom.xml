@@ -45,7 +45,7 @@
             <scope>dev</scope>
         </dependency>
 
-<!--        Swagger Dependency-->
+        <!--        Swagger Dependency-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -73,14 +73,14 @@
             <version>2.3.5</version>
         </dependency>
 
-<!--        SMTPm   -->
+        <!--        SMTPm   -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.5.0</version>
         </dependency>
 
-<!--        Test Containers Dependency-->
+        <!--        Test Containers Dependency-->
 
 
         <dependency>
@@ -110,11 +110,19 @@
             <version>5.5.10</version>
         </dependency>
 
-<!--        H2 for prod -->
+        <!--        H2 for prod -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -126,14 +134,27 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*IntegrationTest.java</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
+                        <id>integration-test</id>
                         <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
+                            <goal>test</goal>
                         </goals>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*IntegrationTest.java</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
