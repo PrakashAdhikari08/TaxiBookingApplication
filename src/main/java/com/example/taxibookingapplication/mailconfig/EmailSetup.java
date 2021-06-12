@@ -17,21 +17,25 @@ import java.util.Properties;
 public class EmailSetup {
 
     @Value("${spring.mail.port}")
-    String port;
+    private String port;
+
+    @Value("${spring.mail.username}")
+    private String mailSenderUserName;
+
+    @Value("${spring.mail.password}")
+    private String senderPassword;
+
+    @Value("${spring.mail.host}")
+    private String mailHost;
+
+
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-//        System.out.println("the port number is "+ port);
+        mailSender.setHost(mailHost);
         mailSender.setPort(Integer.parseInt(port));
-        mailSender.setUsername("cubermanga@gmail.com");
-        mailSender.setPassword("CuberManga@123");
-
-        Properties props = mailSender.getJavaMailProperties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.debug", "true");
+        mailSender.setUsername(mailSenderUserName);
+        mailSender.setPassword(senderPassword);
 
         return mailSender;
     }

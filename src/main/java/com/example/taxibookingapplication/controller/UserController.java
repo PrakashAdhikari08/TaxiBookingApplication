@@ -4,11 +4,10 @@ import com.example.taxibookingapplication.config.userconfig.LoadAdminFromFile;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.dto.UserDto;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
-import com.example.taxibookingapplication.mailconfig.MailServiceImpl;
+import com.example.taxibookingapplication.mailconfig.MailingService;
 import com.example.taxibookingapplication.mapper.UserMapper;
 import com.example.taxibookingapplication.pdf.PdfGenerator;
 import com.example.taxibookingapplication.service.UserService;
-import com.example.taxibookingapplication.service.UserServiceImpl;
 import com.itextpdf.text.DocumentException;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +34,7 @@ public class UserController {
     private PdfGenerator pdfGenerator;
 
     @Autowired
-    private MailServiceImpl mailService;
+    private MailingService mailService;
 
     @ApiOperation("User registration")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -56,7 +55,7 @@ public class UserController {
 
     @GetMapping(value = "/load")
     public void loadAdmin() throws IOException, DocumentException {
-        mailService.sendEmail();
+        mailService.sendEmail("abc", "Booking made", "Hey thanks for booking \n <button>Click</button>");
         loadAdminFromFile.loadAdmin();
     }
 
