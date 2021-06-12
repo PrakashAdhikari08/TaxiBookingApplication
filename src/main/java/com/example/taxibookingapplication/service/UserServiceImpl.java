@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService{
             throw new IllegalStateException(
                     "user with id " + id + " does not exists");
         }
+        log.info("Deleting user with user id : {}", id);
         userRepository.deleteById(id);
     }
 

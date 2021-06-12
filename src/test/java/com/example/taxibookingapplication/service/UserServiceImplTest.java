@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -75,5 +76,21 @@ class UserServiceImplTest {
     private User createUser(){
         return User.builder().email("abc").password("222").firstName("Kishor").lastName("Shrestha").gender(Gender.MALE).
                 build();
+    }
+
+    @Test
+    void deleteUserIfExist() {
+        when(userRepository.existsById(any(Integer.class))).thenReturn(true);
+
+        userService.deleteUser(1);
+
+        verify(userRepository).deleteById(any(Integer.class));
+    }
+
+    @Test
+    void cannotDeleteUserIfNotExist(){
+
+        assertThrows(IllegalStateException.class, ()-> userService.deleteUser(1));
+        verify(userRepository, never()).deleteById(any(Integer.class));
     }
 }
