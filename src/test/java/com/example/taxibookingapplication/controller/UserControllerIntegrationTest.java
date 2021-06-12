@@ -30,7 +30,7 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Slf4j
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
 @TestPropertySource(
            value = "classpath:application-test.yaml"

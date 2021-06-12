@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class NotificationFactory {
 
-   @Autowired
-   private CustomerNotificationServiceImpl customerNotificationService;
+    public NotificationFactory(CustomerNotificationServiceImpl customerNotificationService) {
+        this.customerNotificationService = customerNotificationService;
+    }
+
+    private CustomerNotificationServiceImpl customerNotificationService;
 
    @Autowired
    private DriverNotificationServiceImpl driverNotificationService;

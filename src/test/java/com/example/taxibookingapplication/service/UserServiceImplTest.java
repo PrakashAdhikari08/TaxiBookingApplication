@@ -3,6 +3,9 @@ package com.example.taxibookingapplication.service;
 import com.example.taxibookingapplication.domain.Gender;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
+import com.example.taxibookingapplication.notification.CustomerNotificationServiceImpl;
+import com.example.taxibookingapplication.notification.NotificationFactory;
+import com.example.taxibookingapplication.notification.NotificationService;
 import com.example.taxibookingapplication.repo.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -28,9 +32,13 @@ class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService;
 
+    @Mock
+    private NotificationFactory notificationFactory;
+
+
     @BeforeEach
     void setup(){
-        userService = new UserServiceImpl(userRepository);
+        userService = new UserServiceImpl(userRepository, notificationFactory);
     }
 
 

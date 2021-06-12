@@ -20,14 +20,11 @@ public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
-    @Autowired
-    private MailingService mailingService;
-
-    @Autowired
     private NotificationFactory notificationFactory;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, NotificationFactory notificationFactory) {
         this.userRepository = userRepository;
+        this.notificationFactory = notificationFactory;
     }
 
     public void registerCustomer(User user) throws UserNameAlreadyPresentException {
@@ -41,7 +38,7 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
 //        mailingService.sendEmail(user.getEmail(),"hi", "Welcome");
 //        MessageGenerator.registerCustomerMessage(user.getFirstName());
-log.info(MessageGenerator.registerCustomerMessage(user.getFirstName()));
+        log.info(MessageGenerator.registerCustomerMessage(user.getFirstName()));
         notificationFactory.registerCustomerFirsttime(user.getEmail(),user.getFirstName(),MessageGenerator.registerCustomerMessage(user.getFirstName()));
     }
 
