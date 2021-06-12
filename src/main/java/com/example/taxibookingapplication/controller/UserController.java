@@ -4,6 +4,7 @@ import com.example.taxibookingapplication.config.userconfig.LoadAdminFromFile;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.dto.UserDto;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
+import com.example.taxibookingapplication.mailconfig.MailServiceImpl;
 import com.example.taxibookingapplication.mapper.UserMapper;
 import com.example.taxibookingapplication.pdf.PdfGenerator;
 import com.example.taxibookingapplication.service.UserService;
@@ -33,6 +34,9 @@ public class UserController {
     @Autowired
     private PdfGenerator pdfGenerator;
 
+    @Autowired
+    private MailServiceImpl mailService;
+
     @ApiOperation("User registration")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> customerRegister(@RequestBody UserDto userDto) throws UserNameAlreadyPresentException {
@@ -52,6 +56,7 @@ public class UserController {
 
     @GetMapping(value = "/load")
     public void loadAdmin() throws IOException, DocumentException {
+        mailService.sendEmail();
         loadAdminFromFile.loadAdmin();
     }
 
