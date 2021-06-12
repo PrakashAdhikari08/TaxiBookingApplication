@@ -14,12 +14,12 @@ public class MailingService {
     JavaMailSender mailSender;
 
     @Async
-    public void sendEmail(String to, String subject, String text){
+    public void sendEmail(String to, String subject, String mailMessage){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("cubermanga@gmail.com");
-        message.setTo("gaurabkarki1@gmail.com");
-        message.setSubject("Hi");
-        message.setText(text);
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(mailMessage);
         mailSender.send(message);
     }
 }

@@ -3,6 +3,7 @@ package com.example.taxibookingapplication.service;
 import com.example.taxibookingapplication.domain.*;
 import com.example.taxibookingapplication.dto.TaxiBookingDto;
 import com.example.taxibookingapplication.exception.TaxiBookingIdNotFoundException;
+import com.example.taxibookingapplication.mailconfig.MessageGenerator;
 import com.example.taxibookingapplication.notification.CustomerNotificationServiceImpl;
 import com.example.taxibookingapplication.notification.DriverNotificationServiceImpl;
 import com.example.taxibookingapplication.notification.NotificationFactory;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.List;
+
+import static com.example.taxibookingapplication.mailconfig.MessageGenerator.generateBookingMessageForCustomer;
 
 @Service
 @Slf4j
@@ -51,7 +54,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 taxiBooking.setBookedTime(taxiBooking.getBookedTime());
 //                sendMailService.sendMail(new Mail("Booking created"));
                 taxiBookingRepository.save(taxiBooking);
-                notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
+                notificationFactory.configureBooking(generateBookingMessageForCustomer(user.getFirstName(), taxi.getTaxiNumber(), taxi.getUser().getFirstName()), user.getEmail(), user.getFirstName(), 1);
                 notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 2);
             } else
                 throw getTaxiBookingIdNotFoundException(taxiId);

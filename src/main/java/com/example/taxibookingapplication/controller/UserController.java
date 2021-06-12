@@ -55,7 +55,7 @@ public class UserController {
 
     @GetMapping(value = "/load")
     public void loadAdmin() throws IOException, DocumentException {
-        mailService.sendEmail("abc", "Booking made", "Hey thanks for booking \n <button>Click</button>");
+        mailService.sendEmail("gaurabkarki1@gmail.com", "Booking made", "Hey thanks for booking \n <button>Click</button>");
         loadAdminFromFile.loadAdmin();
     }
 
