@@ -1,25 +1,18 @@
 package com.example.taxibookingapplication.service;
 
 import com.example.taxibookingapplication.domain.*;
-import com.example.taxibookingapplication.dto.TaxiBookingDto;
 import com.example.taxibookingapplication.exception.TaxiBookingIdNotFoundException;
-import com.example.taxibookingapplication.mailconfig.MessageGenerator;
-import com.example.taxibookingapplication.notification.CustomerNotificationServiceImpl;
-import com.example.taxibookingapplication.notification.DriverNotificationServiceImpl;
 import com.example.taxibookingapplication.notification.NotificationFactory;
-import com.example.taxibookingapplication.notification.NotificationService;
 import com.example.taxibookingapplication.repo.UserRepository;
 import com.example.taxibookingapplication.repo.TaxiBookingRepository;
 import com.example.taxibookingapplication.repo.TaxiRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.List;
 
-import static com.example.taxibookingapplication.mailconfig.MessageGenerator.generateBookingMessageForCustomer;
+import static com.example.taxibookingapplication.mailconfig.MessageGenerator.*;
 
 @Service
 @Slf4j
@@ -52,10 +45,9 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 taxiBooking.setTaxi(taxi);
                 taxiBooking.setTaxiBookingStatus(BookingStatus.ACTIVE);
                 taxiBooking.setBookedTime(taxiBooking.getBookedTime());
-//                sendMailService.sendMail(new Mail("Booking created"));
                 taxiBookingRepository.save(taxiBooking);
                 notificationFactory.configureBooking(generateBookingMessageForCustomer(user.getFirstName(), taxi.getTaxiNumber(), taxi.getUser().getFirstName()), user.getEmail(), user.getFirstName(), 1);
-                notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 2);
+                notificationFactory.configureBooking(generateBookingMessageForDriver(taxi.getUser().getFirstName(),user.getFirstName()), user.getEmail(), user.getFirstName(), 2);
             } else
                 throw getTaxiBookingIdNotFoundException(taxiId);
         } else
@@ -80,11 +72,9 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
                 log.info("Username {}",user.getFirstName());
                 taxiBooking.setTaxiBookingStatus(BookingStatus.CANCEL);
                 taxiBooking.setCancelTime(LocalTime.now());
-//                sendMailService.sendMail(new Mail("Booking cancelled"));
 
                 taxiBookingRepository.save(taxiBooking);
-                notificationFactory.configureBooking("ASD", user.getEmail(), user.getFirstName(), 1);
-
+                notificationFactory.configureBooking(generateCancelMessageForCustomer(user.getFirstName(),taxi.getTaxiNumber()), user.getEmail(), user.getFirstName(),1);
 
             } else
                 throw getTaxiBookingIdNotFoundException(taxiBookingID);

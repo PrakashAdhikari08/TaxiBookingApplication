@@ -3,6 +3,9 @@ package com.example.taxibookingapplication.service;
 import com.example.taxibookingapplication.domain.Role;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
+import com.example.taxibookingapplication.mailconfig.MailingService;
+import com.example.taxibookingapplication.mailconfig.MessageGenerator;
+import com.example.taxibookingapplication.notification.NotificationFactory;
 import com.example.taxibookingapplication.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,12 @@ public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
+    @Autowired
+    private MailingService mailingService;
+
+    @Autowired
+    private NotificationFactory notificationFactory;
+
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -30,6 +39,10 @@ public class UserServiceImpl implements UserService{
         user.setRole(Role.CUSTOMER);
         log.info("Registering user into DB with name: {} and Role : {}", user.getFirstName(), user.getRole());
         userRepository.save(user);
+//        mailingService.sendEmail(user.getEmail(),"hi", "Welcome");
+//        MessageGenerator.registerCustomerMessage(user.getFirstName());
+log.info(MessageGenerator.registerCustomerMessage(user.getFirstName()));
+        notificationFactory.registerCustomerFirsttime(user.getEmail(),user.getFirstName(),MessageGenerator.registerCustomerMessage(user.getFirstName()));
     }
 
     @Override

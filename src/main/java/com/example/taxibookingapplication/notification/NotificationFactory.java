@@ -1,5 +1,6 @@
 package com.example.taxibookingapplication.notification;
 
+import com.example.taxibookingapplication.mailconfig.MailingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +19,10 @@ public class NotificationFactory {
         else
             driverNotificationService.sendBookingMessage(message, emailID, name);
     }
+
+    public void registerCustomerFirsttime( String emailId, String name, String message){
+        customerNotificationService.sendRegisterMessage(emailId,name,message);
+    }
+
+
 }
