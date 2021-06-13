@@ -33,4 +33,10 @@ public class CustomerNotificationServiceImpl implements NotificationService {
         log.info("sending email to :{}", emailID);
         mailingService.sendEmail(emailID, "Registration done", message);
     }
+
+    public void sendAcceptMessage(String emailID, String subject, String message) {
+//        log.info("Customer Notification");
+        log.info("sending email to {}", emailID);
+        mailingService.sendEmail(emailID, "Booking Made", message);
+    }
 }

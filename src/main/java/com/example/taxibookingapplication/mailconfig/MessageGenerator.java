@@ -22,4 +22,8 @@ public class MessageGenerator {
     public static String registerCustomerMessage(String customerName){
         return "Dear " + customerName + ","+"\n" + "Welcome to the Team and thank your for using the service." + " \n \n Regards, \n The Booking Team";
     }
+
+    public static String generateAcceptMessageForCustomer( String customerName, String taxiNumber) {
+        return "Dear " + customerName + ",\n" + "Your booking for taxi number: " + taxiNumber + " has been cancelled"+ " \n \n Regards, \n The Booking Team";
+    }
 }

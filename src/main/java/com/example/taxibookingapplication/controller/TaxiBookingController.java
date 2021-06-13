@@ -20,12 +20,19 @@ public class TaxiBookingController {
     private TaxiBookingService taxiBookingService;
 
     @ApiOperation("Booking Status information")
-    @RequestMapping(value="/accept", method = RequestMethod.GET)
-    public ResponseEntity<String> acceptAtaxi(
+    @RequestMapping(value="/book", method = RequestMethod.GET)
+    public ResponseEntity<String> bookAtaxi(
             @RequestParam Integer taxiID, @RequestParam Integer customerID){
 
-       taxiBookingService.acceptATaxi(taxiID, customerID);
+       taxiBookingService.bookATaxi(taxiID, customerID);
        return new ResponseEntity<>("Taxi processed for booking", HttpStatus.OK);
+    }
+
+    @ApiOperation("Booking Accept information")
+    @RequestMapping(value = "/accept", method = RequestMethod.GET)
+    public ResponseEntity<String> accepAtaxi(@RequestParam Integer taxiBookingID){
+        taxiBookingService.acceptATaxi(taxiBookingID);
+        return new ResponseEntity<>("Taxi cancelled", HttpStatus.OK);
     }
 
     @ApiOperation("Booking Cancel information")

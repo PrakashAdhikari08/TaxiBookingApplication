@@ -32,7 +32,7 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
     @Autowired
     private TaxiBookingRepository taxiBookingRepository;
 
-    public void acceptATaxi(Integer taxiId, Integer customerID) {
+    public void bookATaxi(Integer taxiId, Integer customerID) {
         if (taxiRepository.existsById(taxiId)) {
             Taxi taxi = taxiRepository.getById(taxiId);
             if (taxi.getStatus() == Status.AVAILABLE) {
@@ -54,6 +54,20 @@ public class TaxiBookingServiceImpl implements TaxiBookingService{
             throw getTaxiBookingIdNotFoundException(taxiId);
 
 
+    }
+
+    public void acceptATaxi(Integer taxiBookingID){
+        if(taxiBookingRepository.existsById(taxiBookingID)){
+            TaxiBooking taxiBooking = taxiBookingRepository.findById(taxiBookingID).get();
+            Taxi taxi = taxiRepository.getById(taxiBooking.getTaxi().getId());
+            User user =taxiBookingRepository.getById(taxiBookingID).getUser();
+
+            if (taxiBooking.getTaxiBookingStatus() == BookingStatus.ACTIVE){
+                taxiBooking.setAcceptedTime(LocalTime.now());
+                taxiBookingRepository.save(taxiBooking);
+                notificationFactory.configureBooking(generateAcceptMessageForCustomer(user.getFirstName(),taxi.getTaxiNumber()), user.getEmail(), user.getFirstName(),1);
+            }
+        }
     }
 
 
