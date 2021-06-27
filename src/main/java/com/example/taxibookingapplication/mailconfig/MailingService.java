@@ -24,8 +24,6 @@ public class MailingService {
     @Autowired
     JavaMailSender mailSender;
 
-    User user;
-
     @Async
     public void sendEmail(String to, String subject, String mailMessage) {
         SimpleMailMessage message = new SimpleMailMessage();
