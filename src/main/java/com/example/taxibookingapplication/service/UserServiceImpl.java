@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
         this.notificationFactory = notificationFactory;
     }
 
-    public void registerCustomer(User user) throws UserNameAlreadyPresentException {
+    public String registerCustomer(User user) throws UserNameAlreadyPresentException {
         if(userRepository.countByEmail(user.getEmail()) >0){
             log.info("Username: already in use.", user.getEmail());
             throw new UserNameAlreadyPresentException("Username already in use");
@@ -36,10 +36,9 @@ public class UserServiceImpl implements UserService{
         user.setRole(Role.CUSTOMER);
         log.info("Registering user into DB with name: {} and Role : {}", user.getFirstName(), user.getRole());
         userRepository.save(user);
-//        mailingService.sendEmail(user.getEmail(),"hi", "Welcome");
-//        MessageGenerator.registerCustomerMessage(user.getFirstName());
         log.info(MessageGenerator.registerCustomerMessage(user.getFirstName()));
         notificationFactory.registerCustomerFirsttime(user.getEmail(),user.getFirstName(),MessageGenerator.registerCustomerMessage(user.getFirstName()));
+        return "redirect:/registration/success";
     }
 
     @Override

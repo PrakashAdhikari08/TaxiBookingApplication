@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -40,7 +41,6 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<String> customerRegister(@RequestBody UserDto userDto) throws UserNameAlreadyPresentException {
         User user = UserMapper.toEntity(userDto);
-
         userService.registerCustomer(user);
         return new ResponseEntity("Customer registered", HttpStatus.CREATED);
     }
@@ -57,6 +57,17 @@ public class UserController {
     public void loadAdmin() throws IOException, DocumentException {
         mailService.sendEmail("gaurabkarki1@gmail.com", "Booking made", "Hey thanks for booking \n <button>Click</button>");
         loadAdminFromFile.loadAdmin();
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(Model model, String error, String logout) {
+        if (error != null)
+            model.addAttribute("errorMsg", "Your username and password are invalid.");
+
+        if (logout != null)
+            model.addAttribute("msg", "You have been logged out successfully.");
+
+        return "login";
     }
 
     @RequestMapping(value = "/get/all", method = RequestMethod.GET)

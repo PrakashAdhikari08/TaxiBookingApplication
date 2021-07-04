@@ -13,7 +13,7 @@ public interface UserService {
 
     List<User> findAll();
 
-    void registerCustomer(User user) throws UserNameAlreadyPresentException;
+    String registerCustomer(User user) throws UserNameAlreadyPresentException;
 
     void registerDriver(User user);
 }
