@@ -5,10 +5,14 @@ import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.repo.UserRepository;
 import com.example.taxibookingapplication.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -30,7 +34,6 @@ import static org.mockito.Mockito.verify;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @Slf4j
-//@RunWith(SpringRunner.class)
 @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
 @TestPropertySource(
            value = "classpath:application-test.yaml"
@@ -46,7 +49,6 @@ public class UserControllerIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
-
 
     @Test
     public void getListOfAllUser(){

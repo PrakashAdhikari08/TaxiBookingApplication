@@ -23,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/taxi/user")
 @Slf4j
+//@CrossOrigin("http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -55,19 +56,8 @@ public class UserController {
 
     @GetMapping(value = "/load")
     public void loadAdmin() throws IOException, DocumentException {
-        mailService.sendEmail("gaurabkarki1@gmail.com", "Booking made", "Hey thanks for booking \n <button>Click</button>");
+//        mailService.sendEmail("gaurabkarki1@gmail.com", "Booking made", "Hey thanks for booking \n <button>Click</button>");
         loadAdminFromFile.loadAdmin();
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("errorMsg", "Your username and password are invalid.");
-
-        if (logout != null)
-            model.addAttribute("msg", "You have been logged out successfully.");
-
-        return "login";
     }
 
     @RequestMapping(value = "/get/all", method = RequestMethod.GET)

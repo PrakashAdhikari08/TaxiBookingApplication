@@ -16,4 +16,6 @@ public interface UserService {
     String registerCustomer(User user) throws UserNameAlreadyPresentException;
 
     void registerDriver(User user);
+
+    User findByEmail(String email);
 }
