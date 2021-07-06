@@ -2,9 +2,12 @@ package com.example.taxibookingapplication.dto;
 
 import com.example.taxibookingapplication.domain.Gender;
 import com.example.taxibookingapplication.domain.Role;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -31,7 +34,13 @@ public class UserDto {
 
     private String email;
 
+    @Setter(AccessLevel.NONE)
     private String password;
+
+    public void setPassword(String password){
+        this.password =
+                new BCryptPasswordEncoder().encode(password);
+    }
 
     private String resetToken;
 

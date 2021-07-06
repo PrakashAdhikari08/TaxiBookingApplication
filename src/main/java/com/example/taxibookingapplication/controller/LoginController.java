@@ -30,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping("/user/login")
-    public JwtResponse authenticateUser (@RequestBody JwtRequest jwtRequest) throws BadCredentialsException {
+    public JwtResponse authenticateUser (@RequestBody JwtRequest jwtRequest) throws Exception {
             try{
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
@@ -39,8 +39,8 @@ public class LoginController {
                         )
                 );
             }
-            catch (BadCredentialsException e){
-                throw  new BadCredentialsException("Invalid Credentials!!");
+            catch (Exception e){
+                throw  new Exception("Invalid Credentials!!");
             }
 
             final UserDetails user = userDetailsService.loadUserByUsername(jwtRequest.getUsername());
