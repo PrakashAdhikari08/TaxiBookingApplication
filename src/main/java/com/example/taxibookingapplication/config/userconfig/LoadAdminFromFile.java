@@ -3,6 +3,8 @@ package com.example.taxibookingapplication.config.userconfig;
 import com.example.taxibookingapplication.domain.Gender;
 import com.example.taxibookingapplication.domain.Role;
 import com.example.taxibookingapplication.domain.User;
+import com.example.taxibookingapplication.dto.UserDto;
+import com.example.taxibookingapplication.mapper.UserMapper;
 import com.example.taxibookingapplication.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class LoadAdminFromFile {
         while (scanner.hasNext()) {
             String[] line = scanner.nextLine().split(",");
 
-            User user = new User();
+            UserDto user = new UserDto();
 
             user.setFirstName(line[0]);
             user.setLastName(line[1]);
@@ -35,10 +37,12 @@ public class LoadAdminFromFile {
             user.setGender(Gender.valueOf(line[4]));
             user.setEmail(line[5]);
             user.setPassword(line[6]);
-            user.setRole(Role.valueOf(line[7]));
-            user.setResetToken(generateResetToken());
+            User user1 = UserMapper.toEntity(user);
+            user1.setResetToken(generateResetToken());
+            user1.setRole(Role.valueOf(line[7]));
 
-            userRepository.save(user);
+
+            userRepository.save(user1);
             log.info("User with username : {} and role : {} saved to DB", user.getEmail(), user.getRole());
         }
     }
