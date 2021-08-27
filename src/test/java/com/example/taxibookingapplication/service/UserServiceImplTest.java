@@ -101,4 +101,6 @@ class UserServiceImplTest {
         assertThrows(IllegalStateException.class, ()-> userService.deleteUser(1));
         verify(userRepository, never()).deleteById(any(Integer.class));
     }
+
+
 }

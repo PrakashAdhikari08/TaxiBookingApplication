@@ -28,7 +28,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Configuration
 public class User {
 
     @Id

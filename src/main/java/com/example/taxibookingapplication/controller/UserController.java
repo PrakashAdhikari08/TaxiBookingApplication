@@ -61,7 +61,7 @@ public class UserController {
         loadAdminFromFile.loadAdmin();
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
     @RequestMapping(value = "/get/all", method = RequestMethod.GET)
     public ResponseEntity<List<UserDto>> showAll(){
         List<User> users = userService.findAll();
