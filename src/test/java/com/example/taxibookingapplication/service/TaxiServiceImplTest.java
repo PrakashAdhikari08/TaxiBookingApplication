@@ -33,7 +33,7 @@ class TaxiServiceImplTest {
     @Test
     void findAll() {
         taxiService.findAll();
-        verify(taxiRepository.findAll(), times(1));
+        verify(taxiRepository, times(1)).findAll();
 
     }
 
