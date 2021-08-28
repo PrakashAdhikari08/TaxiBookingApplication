@@ -22,11 +22,14 @@ import static com.example.taxibookingapplication.domain.Status.OCCUPIED;
 @Slf4j
 public class TaxiServiceImpl implements TaxiService{
 
-    @Autowired
     private TaxiRepository taxiRepository;
 
-    @Autowired
     private UserRepository userRepository;
+
+    public TaxiServiceImpl(TaxiRepository taxiRepository, UserRepository userRepository) {
+        this.taxiRepository = taxiRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<Taxi> findAll(){
         return taxiRepository.findAll();

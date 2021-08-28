@@ -9,6 +9,8 @@ import java.util.Optional;
 @Service
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    User findByEmail(String email);
+
     Long countByEmail(String email);
 //    @Modifying
 //    @Query("Delete from Customer where customerId in ?1")

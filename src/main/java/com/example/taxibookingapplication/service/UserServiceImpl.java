@@ -3,6 +3,9 @@ package com.example.taxibookingapplication.service;
 import com.example.taxibookingapplication.domain.Role;
 import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.exception.UserNameAlreadyPresentException;
+import com.example.taxibookingapplication.mailconfig.MailingService;
+import com.example.taxibookingapplication.mailconfig.MessageGenerator;
+import com.example.taxibookingapplication.notification.NotificationFactory;
 import com.example.taxibookingapplication.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +20,14 @@ public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    private NotificationFactory notificationFactory;
+
+    public UserServiceImpl(UserRepository userRepository, NotificationFactory notificationFactory) {
         this.userRepository = userRepository;
+        this.notificationFactory = notificationFactory;
     }
 
-    public void registerCustomer(User user) throws UserNameAlreadyPresentException {
+    public String registerCustomer(User user) throws UserNameAlreadyPresentException {
         if(userRepository.countByEmail(user.getEmail()) >0){
             log.info("Username: already in use.", user.getEmail());
             throw new UserNameAlreadyPresentException("Username already in use");
@@ -30,6 +36,9 @@ public class UserServiceImpl implements UserService{
         user.setRole(Role.CUSTOMER);
         log.info("Registering user into DB with name: {} and Role : {}", user.getFirstName(), user.getRole());
         userRepository.save(user);
+        log.info(MessageGenerator.registerCustomerMessage(user.getFirstName()));
+        notificationFactory.registerCustomerFirsttime(user.getEmail(),user.getFirstName(),MessageGenerator.registerCustomerMessage(user.getFirstName()));
+        return "redirect:/registration/success";
     }
 
     @Override
@@ -39,6 +48,11 @@ public class UserServiceImpl implements UserService{
         userRepository.save(user);
     }
 
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
     public void deleteUser(Integer id) {
         boolean exists = userRepository.existsById(id);
@@ -46,6 +60,7 @@ public class UserServiceImpl implements UserService{
             throw new IllegalStateException(
                     "user with id " + id + " does not exists");
         }
+        log.info("Deleting user with user id : {}", id);
         userRepository.deleteById(id);
     }
 
