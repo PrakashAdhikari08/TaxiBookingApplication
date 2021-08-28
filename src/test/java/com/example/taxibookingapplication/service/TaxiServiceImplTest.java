@@ -1,5 +1,10 @@
 package com.example.taxibookingapplication.service;
 
+import com.example.taxibookingapplication.domain.Gender;
+import com.example.taxibookingapplication.domain.Status;
+import com.example.taxibookingapplication.domain.Taxi;
+import com.example.taxibookingapplication.domain.Type;
+import com.example.taxibookingapplication.domain.User;
 import com.example.taxibookingapplication.repo.TaxiRepository;
 import com.example.taxibookingapplication.repo.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,10 +44,16 @@ class TaxiServiceImplTest {
 
     @Test
     void registerTaxi() {
+        Taxi taxi = createTaxi();
+
+        taxiService.registerTaxi(taxi, 1);
+
+        verify(taxiRepository, times(1)).save(taxi);
     }
 
     @Test
     void getAllAvailable() {
+
     }
 
     @Test
@@ -56,4 +67,14 @@ class TaxiServiceImplTest {
     @Test
     void cancelTaxi() {
     }
+
+    private Taxi createTaxi(){
+        return Taxi.builder().taxiNumber("12345").type(Type.MINI).status(Status.AVAILABLE).build();
+    }
+
+    private User createUser(){
+        return User.builder().email("abc").password("222").firstName("Kishor").lastName("Shrestha").gender(Gender.MALE).
+                build();
+    }
+
 }
